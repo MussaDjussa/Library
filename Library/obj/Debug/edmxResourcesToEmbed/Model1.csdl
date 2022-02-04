@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Author" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="YearPublishing" Type="Int32" Nullable="false" />
+    <Property Name="Pulbisher" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ThemeId" Type="Int32" Nullable="false" />
+    <Property Name="Count" Type="Int32" Nullable="false" />
+    <Property Name="IsRestrictions" Type="Boolean" />
+    <Property Name="Id_Condition" Type="Int32" />
+    <NavigationProperty Name="Condition" Relationship="Self.FK_Book_Condition" FromRole="Book" ToRole="Condition" />
+    <NavigationProperty Name="Theme" Relationship="Self.FK_Book_Theme" FromRole="Book" ToRole="Theme" />
+    <NavigationProperty Name="TurnOver" Relationship="Self.FK_TurnOver_Book" FromRole="Book" ToRole="TurnOver" />
+  </EntityType>
+  <EntityType Name="Condition">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Deleted" Type="Boolean" />
+    <NavigationProperty Name="Book" Relationship="Self.FK_Book_Condition" FromRole="Condition" ToRole="Book" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Condition" FromRole="Condition" ToRole="Employee" />
+    <NavigationProperty Name="ReaderCard" Relationship="Self.FK_ReaderCard_Condition" FromRole="Condition" ToRole="ReaderCard" />
+    <NavigationProperty Name="TurnOver" Relationship="Self.FK_TurnOver_Condition" FromRole="Condition" ToRole="TurnOver" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Surname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Patronymic" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="PositionId" Type="Int32" Nullable="false" />
+    <Property Name="Login" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="16" FixedLength="true" Unicode="true" />
+    <Property Name="Id_Condition" Type="Int32" />
+    <NavigationProperty Name="Condition" Relationship="Self.FK_Employee_Condition" FromRole="Employee" ToRole="Condition" />
+    <NavigationProperty Name="Position" Relationship="Self.FK_Employee_Position" FromRole="Employee" ToRole="Position" />
+    <NavigationProperty Name="TurnOver" Relationship="Self.FK_TurnOver_Employee" FromRole="Employee" ToRole="TurnOver" />
+  </EntityType>
+  <EntityType Name="Position">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Position" FromRole="Position" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="ReaderCard">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Surname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Patronymic" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsBlock" Type="Boolean" />
+    <Property Name="Id_Condition" Type="Int32" />
+    <NavigationProperty Name="Condition" Relationship="Self.FK_ReaderCard_Condition" FromRole="ReaderCard" ToRole="Condition" />
+    <NavigationProperty Name="TurnOver" Relationship="Self.FK_TurnOver_ReaderCard" FromRole="ReaderCard" ToRole="TurnOver" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Theme">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Book" Relationship="Self.FK_Book_Theme" FromRole="Theme" ToRole="Book" />
+  </EntityType>
+  <EntityType Name="TurnOver">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ReaderCardId" Type="Int32" Nullable="false" />
+    <Property Name="BookId" Type="Int32" Nullable="false" />
+    <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+    <Property Name="DateIssue" Type="DateTime" Precision="3" />
+    <Property Name="DateReturn" Type="DateTime" Precision="3" />
+    <Property Name="Id_Condition" Type="Int32" />
+    <NavigationProperty Name="Book" Relationship="Self.FK_TurnOver_Book" FromRole="TurnOver" ToRole="Book" />
+    <NavigationProperty Name="Condition" Relationship="Self.FK_TurnOver_Condition" FromRole="TurnOver" ToRole="Condition" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_TurnOver_Employee" FromRole="TurnOver" ToRole="Employee" />
+    <NavigationProperty Name="ReaderCard" Relationship="Self.FK_TurnOver_ReaderCard" FromRole="TurnOver" ToRole="ReaderCard" />
+  </EntityType>
+  <Association Name="FK_Book_Condition">
+    <End Role="Condition" Type="Self.Condition" Multiplicity="0..1" />
+    <End Role="Book" Type="Self.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Condition">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="Id_Condition" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Book_Theme">
+    <End Role="Theme" Type="Self.Theme" Multiplicity="1" />
+    <End Role="Book" Type="Self.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Theme">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="ThemeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TurnOver_Book">
+    <End Role="Book" Type="Self.Book" Multiplicity="1" />
+    <End Role="TurnOver" Type="Self.TurnOver" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TurnOver">
+        <PropertyRef Name="BookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Condition">
+    <End Role="Condition" Type="Self.Condition" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Condition">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Id_Condition" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReaderCard_Condition">
+    <End Role="Condition" Type="Self.Condition" Multiplicity="0..1" />
+    <End Role="ReaderCard" Type="Self.ReaderCard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Condition">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ReaderCard">
+        <PropertyRef Name="Id_Condition" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TurnOver_Condition">
+    <End Role="Condition" Type="Self.Condition" Multiplicity="0..1" />
+    <End Role="TurnOver" Type="Self.TurnOver" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Condition">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TurnOver">
+        <PropertyRef Name="Id_Condition" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Position">
+    <End Role="Position" Type="Self.Position" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="PositionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TurnOver_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="TurnOver" Type="Self.TurnOver" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TurnOver">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TurnOver_ReaderCard">
+    <End Role="ReaderCard" Type="Self.ReaderCard" Multiplicity="1" />
+    <End Role="TurnOver" Type="Self.TurnOver" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReaderCard">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TurnOver">
+        <PropertyRef Name="ReaderCardId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LibraryEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Book" EntityType="Self.Book" />
+    <EntitySet Name="Condition" EntityType="Self.Condition" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" />
+    <EntitySet Name="Position" EntityType="Self.Position" />
+    <EntitySet Name="ReaderCard" EntityType="Self.ReaderCard" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Theme" EntityType="Self.Theme" />
+    <EntitySet Name="TurnOver" EntityType="Self.TurnOver" />
+    <AssociationSet Name="FK_Book_Condition" Association="Self.FK_Book_Condition">
+      <End Role="Condition" EntitySet="Condition" />
+      <End Role="Book" EntitySet="Book" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Book_Theme" Association="Self.FK_Book_Theme">
+      <End Role="Theme" EntitySet="Theme" />
+      <End Role="Book" EntitySet="Book" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TurnOver_Book" Association="Self.FK_TurnOver_Book">
+      <End Role="Book" EntitySet="Book" />
+      <End Role="TurnOver" EntitySet="TurnOver" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Condition" Association="Self.FK_Employee_Condition">
+      <End Role="Condition" EntitySet="Condition" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReaderCard_Condition" Association="Self.FK_ReaderCard_Condition">
+      <End Role="Condition" EntitySet="Condition" />
+      <End Role="ReaderCard" EntitySet="ReaderCard" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TurnOver_Condition" Association="Self.FK_TurnOver_Condition">
+      <End Role="Condition" EntitySet="Condition" />
+      <End Role="TurnOver" EntitySet="TurnOver" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Position" Association="Self.FK_Employee_Position">
+      <End Role="Position" EntitySet="Position" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TurnOver_Employee" Association="Self.FK_TurnOver_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="TurnOver" EntitySet="TurnOver" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TurnOver_ReaderCard" Association="Self.FK_TurnOver_ReaderCard">
+      <End Role="ReaderCard" EntitySet="ReaderCard" />
+      <End Role="TurnOver" EntitySet="TurnOver" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
